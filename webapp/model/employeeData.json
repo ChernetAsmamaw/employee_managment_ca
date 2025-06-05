@@ -1,0 +1,234 @@
+{
+  "employees": [
+    {
+      "id": "1",
+      "name": "John Doe",
+      "role": "Software Developer",
+      "salary": 75000,
+      "email": "john.doe@company.com",
+      "phone": "+1-555-0123",
+      "department": "IT"
+    },
+    {
+      "id": "2",
+      "name": "Jane Smith",
+      "role": "Project Manager",
+      "salary": 85000,
+      "email": "jane.smith@company.com",
+      "phone": "+1-555-0124",
+      "department": "Management"
+    },
+    {
+      "id": "3",
+      "name": "Mike Johnson",
+      "role": "UI/UX Designer",
+      "salary": 70000,
+      "email": "mike.johnson@company.com",
+      "phone": "+1-555-0125",
+      "department": "Design"
+    },
+    {
+      "id": "4",
+      "name": "Sarah Williams",
+      "role": "Business Analyst",
+      "salary": 68000,
+      "email": "sarah.williams@company.com",
+      "phone": "+1-555-0126",
+      "department": "Business"
+    },
+    {
+      "id": "5",
+      "name": "David Brown",
+      "role": "DevOps Engineer",
+      "salary": 78000,
+      "email": "david.brown@company.com",
+      "phone": "+1-555-0127",
+      "department": "IT"
+    },
+
+    {
+      "id": "6",
+      "name": "Abebe Kassa",
+      "role": "Software Developer",
+      "salary": 76000,
+      "email": "abebe.kassa@company.com",
+      "phone": "+251-911-000001",
+      "department": "IT"
+    },
+    {
+      "id": "7",
+      "name": "Hanna Fekadu",
+      "role": "Software Developer",
+      "salary": 77000,
+      "email": "hanna.fekadu@company.com",
+      "phone": "+251-911-000002",
+      "department": "IT"
+    },
+    {
+      "id": "8",
+      "name": "Tewodros Alemayehu",
+      "role": "Software Developer",
+      "salary": 75500,
+      "email": "tewodros.alemayehu@company.com",
+      "phone": "+251-911-000003",
+      "department": "IT"
+    },
+
+    {
+      "id": "9",
+      "name": "Selamawit Gebru",
+      "role": "Project Manager",
+      "salary": 86000,
+      "email": "selamawit.gebru@company.com",
+      "phone": "+251-911-000004",
+      "department": "Management"
+    },
+    {
+      "id": "10",
+      "name": "Kebede Worku",
+      "role": "Project Manager",
+      "salary": 87000,
+      "email": "kebede.worku@company.com",
+      "phone": "+251-911-000005",
+      "department": "Management"
+    },
+    {
+      "id": "11",
+      "name": "Rahel Mekonnen",
+      "role": "Project Manager",
+      "salary": 88000,
+      "email": "rahel.mekonnen@company.com",
+      "phone": "+251-911-000006",
+      "department": "Management"
+    },
+
+    {
+      "id": "12",
+      "name": "Samuel Tsegaye",
+      "role": "UI/UX Designer",
+      "salary": 71000,
+      "email": "samuel.tsegaye@company.com",
+      "phone": "+251-911-000007",
+      "department": "Design"
+    },
+    {
+      "id": "13",
+      "name": "Lulit Tadesse",
+      "role": "UI/UX Designer",
+      "salary": 70500,
+      "email": "lulit.tadesse@company.com",
+      "phone": "+251-911-000008",
+      "department": "Design"
+    },
+    {
+      "id": "14",
+      "name": "Henok Tesfaye",
+      "role": "UI/UX Designer",
+      "salary": 72000,
+      "email": "henok.tesfaye@company.com",
+      "phone": "+251-911-000009",
+      "department": "Design"
+    },
+
+    {
+      "id": "15",
+      "name": "Mekdes Asfaw",
+      "role": "Business Analyst",
+      "salary": 69000,
+      "email": "mekdes.asfaw@company.com",
+      "phone": "+251-911-000010",
+      "department": "Business"
+    },
+    {
+      "id": "16",
+      "name": "Tesfaye Biru",
+      "role": "Business Analyst",
+      "salary": 70000,
+      "email": "tesfaye.biru@company.com",
+      "phone": "+251-911-000011",
+      "department": "Business"
+    },
+    {
+      "id": "17",
+      "name": "Yordanos Hailu",
+      "role": "Business Analyst",
+      "salary": 69500,
+      "email": "yordanos.hailu@company.com",
+      "phone": "+251-911-000012",
+      "department": "Business"
+    },
+
+    {
+      "id": "18",
+      "name": "Bereket Girma",
+      "role": "DevOps Engineer",
+      "salary": 79000,
+      "email": "bereket.girma@company.com",
+      "phone": "+251-911-000013",
+      "department": "IT"
+    },
+    {
+      "id": "19",
+      "name": "Meskerem Demissie",
+      "role": "DevOps Engineer",
+      "salary": 80000,
+      "email": "meskerem.demissie@company.com",
+      "phone": "+251-911-000014",
+      "department": "IT"
+    },
+    {
+      "id": "20",
+      "name": "Fitsum Zerihun",
+      "role": "DevOps Engineer",
+      "salary": 79500,
+      "email": "fitsum.zerihun@company.com",
+      "phone": "+251-911-000015",
+      "department": "IT"
+    },
+    {
+      "id": "21",
+      "name": "Biruktawit Endale",
+      "role": "Software Developer",
+      "salary": 78000,
+      "email": "biruktawit.endale@company.com",
+      "phone": "+251-911-000016",
+      "department": "IT"
+    },
+    {
+      "id": "22",
+      "name": "Tamirat Abate",
+      "role": "UI/UX Designer",
+      "salary": 71500,
+      "email": "tamirat.abate@company.com",
+      "phone": "+251-911-000017",
+      "department": "Design"
+    },
+    {
+      "id": "23",
+      "name": "Ruth Negash",
+      "role": "Project Manager",
+      "salary": 89000,
+      "email": "ruth.negash@company.com",
+      "phone": "+251-911-000018",
+      "department": "Management"
+    },
+    {
+      "id": "24",
+      "name": "Eyob Eshetu",
+      "role": "Business Analyst",
+      "salary": 71000,
+      "email": "eyob.eshetu@company.com",
+      "phone": "+251-911-000019",
+      "department": "Business"
+    },
+    {
+      "id": "25",
+      "name": "Mahi Elias",
+      "role": "DevOps Engineer",
+      "salary": 81000,
+      "email": "mahi.elias@company.com",
+      "phone": "+251-911-000020",
+      "department": "IT"
+    }
+  ]
+}

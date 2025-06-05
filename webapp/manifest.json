@@ -1,0 +1,84 @@
+{
+  "_version": "1.28.0",
+  "sap.app": {
+    "id": "sap.employees.exc",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}"
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {},
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": false,
+    "dependencies": {
+      "minUI5Version": "1.96.36",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.f": {},
+        "sap.ui.table": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "sap.employees.exc.i18n.i18n"
+        }
+      }
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "async": true,
+        "viewPath": "sap.employees.exc.view",
+        "controlId": "App",
+        "controlAggregation": "pages"
+      },
+      "routes": [
+        {
+          "pattern": "",
+          "name": "EmployeeList",
+          "target": "EmployeeList"
+        },
+        {
+          "pattern": "employee/{employeeId}",
+          "name": "EmployeeDetail",
+          "target": "EmployeeDetail"
+        }
+      ],
+      "targets": {
+        "EmployeeList": {
+          "viewName": "EmployeeList",
+          "transition": "fade"
+        },
+        "EmployeeDetail": {
+          "viewName": "EmployeeDetail",
+          "transition": "flip"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "sap.employees.exc.view.App",
+      "type": "XML",
+      "async": true,
+      "id": "App"
+    }
+  }
+}

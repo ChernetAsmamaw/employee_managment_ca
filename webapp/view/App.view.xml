@@ -1,0 +1,10 @@
+<mvc:View
+    controllerName="sap.employees.exc.controller.App"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+    
+    <!-- App is the root container that holds all other views, providing the basic shell structure for navigation between pages
+         The router will automatically add pages to this App container -->
+    <App id="App" />
+    
+</mvc:View>
