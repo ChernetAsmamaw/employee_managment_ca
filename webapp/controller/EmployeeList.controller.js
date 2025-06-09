@@ -1,11 +1,10 @@
 sap.ui.define([
   "sap/ui/core/mvc/Controller",
   "sap/ui/core/UIComponent",
-  "sap/ui/model/json/JSONModel",
   "sap/ui/model/Filter",
   "sap/ui/model/FilterOperator",
   "sap/m/MessageToast"
-], function (Controller, UIComponent, JSONModel, Filter, FilterOperator, MessageToast) {
+], function (Controller, UIComponent, Filter, FilterOperator, MessageToast) {
   "use strict";
 
   /**
@@ -14,19 +13,11 @@ sap.ui.define([
   return Controller.extend("sap.employees.exc.controller.EmployeeList", {
 
       /**
-       * onInit is called when the view is initialized
-       * Here we set up the data model and any initial configurations
+       * onInit is called when the view is initialized to set up the data model and any initial configurations
        */
       onInit: function () {
-          // Get the data model from the component
-          // getOwnerComponent() gives us access to the main component
-          var oModel = this.getOwnerComponent().getModel();
-          
-          // If no model exists in component, create one locally
-          if (!oModel) {
-              oModel = new JSONModel("model/employeeData.json");
-              this.getView().setModel(oModel);
-          }
+        // Get the data model. getOwnerComponent() gives us access to the main component
+        this.getOwnerComponent().getModel();
       },
 
       /**

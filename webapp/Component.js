@@ -28,15 +28,14 @@ sap.ui.define([
             // Initialize the router - this enables navigation between views the configuration comes from manifest.json
             this.getRouter().initialize();
 
-            // Create our employee data model
-            // The path "model/employeeData.json" is relative to the app root
+            // Create our employee data model using it's relative path to the app root
             var oEmployeeModel = new JSONModel("model/employeeData.json");
             
             // Set the model to the component so all views can access it
             // The empty string "" means this becomes the default model
             this.setModel(oEmployeeModel);
             
-            // Alsoname your model like this: this.setModel(oEmployeeModel, "employees");
+            // Also name the model like this: this.setModel(oEmployeeModel, "employees");
             // Then you'd reference it in views as {employees>/employees}
         }
     });
