@@ -4,17 +4,17 @@
     xmlns="sap.m"
     xmlns:f="sap.f"
     xmlns:core="sap.ui.core"
+    height="100%" displayBlock="true"
     core:require="{formatter: 'sap/employees/exc/model/Formatter'}">
 
-    <Page title="{i18n>employeeListTitle}" showNavButton="false">
-        
+    <Page title="{i18n>employeeListTitle}" showNavButton="false" enableScrolling="false">
         <headerContent>
-            <Toolbar class="sapUiMediumMargin">
+            <Toolbar>
                 <ToolbarSpacer />
-                <Button 
-                    icon="sap-icon://refresh" 
-                    text="Refresh"
-                    tooltip="Refresh Data"
+                <Button
+                    icon="sap-icon://refresh"
+                    text="{i18n>refreshButton}"
+                    tooltip="{i18n>refreshButton}"
                     type="Transparent"
                     press="onRefresh"
                     class="sapUiTinyMarginEnd" />
@@ -22,62 +22,62 @@
         </headerContent>
 
         <content>
-            <Panel headerText="Employee Directory" 
-                   expandable="false" 
-                   expanded="true"
-                   width="auto"
-                   class="sapUiResponsiveMargin">
-                   
+            <Panel headerText="{i18n>employeePanelHeader}"
+                    expandable="true"
+                    expanded="true"
+                    width="auto"
+                    class="sapUiResponsiveMargin"
+                    height="100%">
                 <headerToolbar>
-                    <Toolbar class="sapUiResponsiveContentPadding">
-                        <Title text="Total Employees: {= ${/employees}.length }" level="H4" />
+                    <Toolbar class="sapUiContentPadding">
+                        <Title text="{i18n>employeeCount}: {= ${/employees}.length }" level="H4" />
                         <ToolbarSpacer />
-                        <!-- <Button 
-                            text="Add Employee" 
+                        <Button
+                            text="{i18n>addButton}"
                             icon="sap-icon://add"
                             type="Emphasized"
                             press="onAddEmployee"
-                            class="sapUiTinyMarginEnd" /> -->
-                        <SearchField 
+                            class="sapUiTinyMarginEnd" />
+                        <SearchField
                             width="12rem"
-                            placeholder="Search ..."
+                            placeholder="{i18n>searchPlaceholder}"
                             search="onSearch"
                             liveChange="onSearch" />
                     </Toolbar>
                 </headerToolbar>
 
-                <VBox class="sapUiContentPadding">
+                <VBox class="sapUiContentPadding" fitContainer="true">
                     <Table id="employeeTable"
-                           items="{/employees}"
-                           mode= "None"
-                           selectionChange="onEmployeeSelect"
-                           growing="true"
-                           growingThreshold="10"
-                           width="100%"
-                           fixedLayout="false">
-                        
+                            items="{/employees}"
+                            mode= "None"
+                            selectionChange="onEmployeeSelect"
+                            growing="true"
+                            growingThreshold="10"
+                            width="100%"
+                            fixedLayout="false">
+
                         <columns>
                             <Column width="2.5rem">
                                 <Text text="" />
                             </Column>
                             <Column width="auto" minScreenWidth="Tablet" demandPopin="true">
                                 <header>
-                                    <Text text="Name" />
+                                    <Text text="{i18n>nameLabel}" />
                                 </header>
                             </Column>
                             <Column width="auto" minScreenWidth="Desktop" demandPopin="true" hAlign="Begin">
                                 <header>
-                                    <Text text="Role" />
+                                    <Text text="{i18n>positionLabel}" />
                                 </header>
                             </Column>
                             <Column width="auto" minScreenWidth="Desktop" demandPopin="true" hAlign="Begin">
                                 <header>
-                                    <Text text="Department" />
+                                    <Text text="{i18n>departmentLabel}" />
                                 </header>
                             </Column>
                             <Column width="auto" minScreenWidth="Tablet" demandPopin="true" hAlign="End">
                                 <header>
-                                    <Text text="Salary" />
+                                    <Text text="{i18n>salaryLabel}" />
                                 </header>
                             </Column>
                             <Column width="2rem">
@@ -88,27 +88,29 @@
                         <items>
                             <ColumnListItem press="onEmployeePress" type="Active">
                                 <cells>
-                                    <core:Icon 
+                                    <core:Icon
                                         src="{formatter: 'formatter.getDepartmentIcon', parts: ['department']}"
                                         color="Neutral"
-                                        size="1.5rem" />
-                                    
-                                    <ObjectIdentifier 
+                                        size="1.5rem"
+                                        tooltip="{i18n>employeeIcon}" />
+
+                                    <ObjectIdentifier
                                         title="{name}"
                                         titleActive="true" />
-                                    
-                                    <Text 
+
+                                    <Text
                                         text="{formatter: 'formatter.formatRole', parts: ['role']}"
                                         maxLines="1" />
-                                    
-                                    <Text 
+
+                                    <Text
                                         text="{department}"
                                         maxLines="1" />
-                                    
-                                    <ObjectNumber 
+
+                                    <ObjectNumber
                                         number="{formatter: 'formatter.formatSalary', parts: ['salary']}"
                                         state="Success"
-                                        textAlign="End" />
+                                        textAlign="End"
+                                        tooltip="{i18n>salaryAmount}" />
 
                                 </cells>
                             </ColumnListItem>
@@ -117,6 +119,5 @@
                 </VBox>
             </Panel>
         </content>
-
     </Page>
 </mvc:View>

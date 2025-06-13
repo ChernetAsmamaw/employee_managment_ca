@@ -1,106 +1,140 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/core/UIComponent",
-    "sap/ui/model/json/JSONModel",
     "sap/m/MessageToast",
-    "sap/m/MessageBox"
-], function (Controller, UIComponent, JSONModel, MessageToast, MessageBox) {
+    "sap/m/MessageBox",
+    "sap/ui/model/json/JSONModel",
+    "sap/ui/core/Fragment"
+], function (Controller, UIComponent, MessageToast, MessageBox, JSONModel, Fragment) {
     "use strict";
 
-    /**
-     * The Detail controller handles:
-     * - Route parameter processing (employee ID from URL)
-     * - Data binding for the selected employee
-     * - Navigation back to the list
-     * - CRUD operations (Edit, Delete)
-     */
     return Controller.extend("sap.employees.exc.controller.EmployeeDetail", {
 
-        /**
-         * onInit sets up route handling, listens for the route pattern match to get the employee ID
-         */
         onInit: function () {
-            // Get the router from the component
             var oRouter = UIComponent.getRouterFor(this);
-            
-            // attachPatternMatched listens for when this route is navigated to
-            // The route pattern "employee/{employeeId}" will trigger this function
+
             oRouter.getRoute("EmployeeDetail").attachPatternMatched(this._onObjectMatched, this);
         },
 
-        /**
-         * This function is called when the route pattern matches and finds the corresponding data
-         * @param {sap.ui.base.Event} oEvent - Route matched event
-         */
         _onObjectMatched: function (oEvent) {
-            // getParameter("arguments") gives us the URL parameters
             var sEmployeeId = oEvent.getParameter("arguments").employeeId;
-            
-            // Get the main data model
-            var oModel = this.getView().getModel();
-            
-            if (oModel) {
-                // Get all employees from the model
-                var aEmployees = oModel.getProperty("/employees");
-                
-                if (aEmployees) {
-                    // find() returns the first matching element
-                    var oEmployee = aEmployees.find(function(emp) {
-                        return emp.id === sEmployeeId;
-                    });
-                    
-                    if (oEmployee) {
-                        // Create a new model for the selected employee to give it a view
-                        var oSelectedEmployeeModel = new JSONModel(oEmployee);
-                        this.getView().setModel(oSelectedEmployeeModel, "selectedEmployee");
-                        
-                        // Store the employee ID for later use
-                        this._sEmployeeId = sEmployeeId;
-                    } else {
-                        // Handle case where employee is not found
-                        MessageToast.show("Employee not found");
-                        this.onNavBack();
-                    }
-                }
-            }
+            this._sEmployeeId = sEmployeeId;
+
+            this.getView().bindElement({
+                path: "/employees/" + this._getEmployeeIndexById(sEmployeeId)
+            });
         },
 
-        /**
-         * Navigation back to the list view
-         */
+        _getEmployeeIndexById: function (sEmployeeId) {
+            var oModel = this.getView().getModel();
+            var aEmployees = oModel.getProperty("/employees");
+            if (aEmployees) {
+                return aEmployees.findIndex(function (emp) {
+                    return emp.id === sEmployeeId;
+                });
+            }
+            return -1;
+        },
+
         onNavBack: function () {
-            // navTo() navigates to "EmployeeList", the route name in manifest.json
             UIComponent.getRouterFor(this).navTo("EmployeeList");
         },
 
-        /**
-         * Edit functionality 
-         */
         onEdit: function () {
-            var oSelectedEmployee = this.getView().getModel("selectedEmployee").getData();
-            
-            MessageBox.information(
-                `Edit functionality Placeholder \n` +
-                // Open an edit dialog
-                // Navigate to an edit page
-                // Enable inline editing
-                // Validate and save changes
-                {
-                    title: "Edit Employee"
-                }
-            );
+            var oEmployee = this.getView().getBindingContext().getObject();
+            this._openEmployeeDialog(oEmployee);
         },
 
-        /**
-         * Delete confirmation
-         */
+        _openEmployeeDialog: function (oEmployeeData) {
+            var oView = this.getView();
+            var oDialogModel = new JSONModel();
+
+            if (oEmployeeData) {
+                oDialogModel.setProperty("/dialogTitle", oView.getModel("i18n").getResourceBundle().getText("editEmployeeTitle"));
+                oDialogModel.setProperty("/employee", jQuery.extend({}, oEmployeeData));
+                oDialogModel.setProperty("/isNew", false);
+            } else {
+                oDialogModel.setProperty("/dialogTitle", oView.getModel("i18n").getResourceBundle().getText("addEmployeeTitle"));
+                oDialogModel.setProperty("/employee", {
+                    id: this._generateNewId(),
+                    name: "",
+                    role: "",
+                    department: "",
+                    salary: 0,
+                    email: "",
+                    phone: "",
+                    avatar: ""
+                });
+                oDialogModel.setProperty("/isNew", true);
+            }
+
+            oView.setModel(oDialogModel, "dialog");
+
+            if (!this._oEmployeeDialog) {
+                Fragment.load({
+                    id: oView.getId(),
+                    name: "sap.employees.exc.view.EmployeeDialog",
+                    controller: this
+                }).then(function (oDialog) {
+                    this._oEmployeeDialog = oDialog;
+                    oView.addDependent(oDialog);
+                    oDialog.open();
+                }.bind(this));
+            } else {
+                this._oEmployeeDialog.open();
+            }
+        },
+
+        _generateNewId: function () {
+            var oModel = this.getView().getModel();
+            var aEmployees = oModel.getProperty("/employees");
+            var iMaxId = 0;
+            if (aEmployees && aEmployees.length > 0) {
+                iMaxId = Math.max(...aEmployees.map(emp => parseInt(emp.id.replace('EMP', '')) || 0));
+            }
+            return "EMP" + String(iMaxId + 1).padStart(3, '0');
+        },
+
+        onSaveEmployee: function () {
+            var oModel = this.getView().getModel();
+            var oDialogModel = this.getView().getModel("dialog");
+            var oEmployee = oDialogModel.getProperty("/employee");
+            var bIsNew = oDialogModel.getProperty("/isNew");
+            var aEmployees = oModel.getProperty("/employees");
+
+            if (!oEmployee.name || !oEmployee.role || !oEmployee.department || !oEmployee.salary || !oEmployee.email) {
+                MessageToast.show("Please fill in all required fields.");
+                return;
+            }
+
+            if (bIsNew) {
+                aEmployees.push(oEmployee);
+                MessageToast.show("Employee added successfully!");
+            } else {
+                var iIndex = aEmployees.findIndex(emp => emp.id === oEmployee.id);
+                if (iIndex > -1) {
+                    oModel.setProperty("/employees/" + iIndex, oEmployee);
+                    MessageToast.show("Employee updated successfully!");
+                }
+            }
+            this._oEmployeeDialog.close();
+            this.getView().bindElement({
+                path: "/employees/" + this._getEmployeeIndexById(oEmployee.id)
+            });
+        },
+
+        onCancelEmployee: function () {
+            if (this._oEmployeeDialog) {
+                this._oEmployeeDialog.close();
+            }
+        },
+
         onDelete: function () {
-            var oSelectedEmployee = this.getView().getModel("selectedEmployee").getData();
+            var oEmployee = this.getView().getBindingContext().getObject();
             var that = this;
-            
-            // MessageBox.confirm shows a confirmation dialog
+
             MessageBox.confirm(
-                `Are you sure you want to delete employee "${oSelectedEmployee.name}"?\n\nThis action cannot be undone.`,
+                `Are you sure you want to delete employee "${oEmployee.name}"?\n\nThis action cannot be undone.`,
                 {
                     title: "Confirm Deletion",
                     actions: [MessageBox.Action.DELETE, MessageBox.Action.CANCEL],
@@ -114,56 +148,34 @@ sap.ui.define([
             );
         },
 
-        /**
-         * Actual delete, remove the employee from the data model
-         * @private
-         */
         _performDelete: function () {
             var oModel = this.getView().getModel();
             var aEmployees = oModel.getProperty("/employees");
-            var sEmployeeId = this._sEmployeeId;
-            
-            // Find and remove the employee
-            var iIndex = aEmployees.findIndex(function(emp) {
-                return emp.id === sEmployeeId;
+            var sEmployeeIdToDelete = this.getView().getBindingContext().getObject().id;
+
+            var iIndex = aEmployees.findIndex(function (emp) {
+                return emp.id === sEmployeeIdToDelete;
             });
-            
+
             if (iIndex > -1) {
-                // splice() removes elements from array
                 aEmployees.splice(iIndex, 1);
-                
-                // Update the model
+
                 oModel.setProperty("/employees", aEmployees);
-                
+
                 MessageToast.show("Employee deleted successfully");
-                
+
                 this.onNavBack();
             } else {
                 MessageToast.show("Error: Employee not found");
             }
         },
 
-        /**
-         * Refresh for the detail view
-         */
         onRefresh: function () {
-            if (this._sEmployeeId) {
-                // Simulate re-matching the route to refresh data
-                var oRouter = UIComponent.getRouterFor(this);
-                var oRoute = oRouter.getRoute("EmployeeDetail");
-                
-                // Create fake event to trigger refresh
-                var oFakeEvent = {
-                    getParameter: function(sParam) {
-                        if (sParam === "arguments") {
-                            return { employeeId: this._sEmployeeId };
-                        }
-                    }.bind(this)
-                };
-                
-                this._onObjectMatched(oFakeEvent);
-                MessageToast.show("Employee data refreshed");
-            }
+            var sEmployeeId = this.getView().getBindingContext().getObject().id;
+            this.getView().bindElement({
+                path: "/employees/" + this._getEmployeeIndexById(sEmployeeId)
+            });
+            MessageToast.show("Employee data refreshed");
         }
     });
 });

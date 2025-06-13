@@ -1,0 +1,114 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form">
+
+    <Dialog id="employeeDialog"
+            title="{dialog>/dialogTitle}"
+            contentWidth="28rem"
+            contentHeight="auto"
+            resizable="true"
+            draggable="true"
+            class="sapUiResponsiveContentPadding">
+
+        <content>
+            <VBox class="sapUiMediumMargin">
+
+                <Label text="Employee ID:" required="true" class="sapUiTinyMarginBottom" />
+                <Input id="employeeIdInput"
+                        value="{dialog>/employee/id}"
+                        enabled="false"
+                        class="sapUiTinyMarginBottom" />
+
+                <Label text="Full Name:" required="true" class="sapUiTinyMarginBottom" />
+                <Input id="employeeNameInput"
+                        value="{dialog>/employee/name}"
+                        placeholder="Enter employee full name"
+                        required="true"
+                        class="sapUiTinyMarginBottom" />
+
+                <Label text="Role/Position:" required="true" class="sapUiTinyMarginBottom" />
+                <ComboBox id="employeeRoleCombo"
+                            selectedKey="{dialog>/employee/role}"
+                            placeholder="Select or enter role"
+                            class="sapUiTinyMarginBottom">
+                    <core:Item key="Software Engineer" text="Software Engineer" />
+                    <core:Item key="Senior Software Engineer" text="Senior Software Engineer" />
+                    <core:Item key="Team Lead" text="Team Lead" />
+                    <core:Item key="Project Manager" text="Project Manager" />
+                    <core:Item key="Product Manager" text="Product Manager" />
+                    <core:Item key="UX Designer" text="UX Designer" />
+                    <core:Item key="Data Analyst" text="Data Analyst" />
+                    <core:Item key="DevOps Engineer" text="DevOps Engineer" />
+                    <core:Item key="QA Engineer" text="QA Engineer" />
+                    <core:Item key="Business Analyst" text="Business Analyst" />
+                    <core:Item key="HR Manager" text="HR Manager" />
+                    <core:Item key="Marketing Manager" text="Marketing Manager" />
+                    <core:Item key="Sales Representative" text="Sales Representative" />
+                    <core:Item key="Finance Manager" text="Finance Manager" />
+                    <core:Item key="Operations Manager" text="Operations Manager" />
+                </ComboBox>
+
+                <Label text="Department:" required="true" class="sapUiTinyMarginBottom" />
+                <ComboBox id="employeeDepartmentCombo"
+                            selectedKey="{dialog>/employee/department}"
+                            placeholder="Select department"
+                            class="sapUiTinyMarginBottom">
+                    <core:Item key="Engineering" text="Engineering" />
+                    <core:Item key="Product" text="Product" />
+                    <core:Item key="Design" text="Design" />
+                    <core:Item key="Marketing" text="Marketing" />
+                    <core:Item key="Sales" text="Sales" />
+                    <core:Item key="HR" text="HR" />
+                    <core:Item key="Finance" text="Finance" />
+                    <core:Item key="Operations" text="Operations" />
+                    <core:Item key="Legal" text="Legal" />
+                    <core:Item key="IT" text="IT" />
+                </ComboBox>
+
+                <Label text="Salary:" required="true" class="sapUiTinyMarginBottom" />
+                <Input id="employeeSalaryInput"
+                        value="{dialog>/employee/salary}"
+                        placeholder="Enter salary amount"
+                        type="Number"
+                        required="true"
+                        class="sapUiTinyMarginBottom" />
+
+                <Label text="Email:" required="true" class="sapUiTinyMarginBottom" />
+                <Input id="employeeEmailInput"
+                        value="{dialog>/employee/email}"
+                        placeholder="Enter email address"
+                        type="Email"
+                        required="true"
+                        class="sapUiTinyMarginBottom" />
+
+                <Label text="Phone:" class="sapUiTinyMarginBottom" />
+                <Input id="employeePhoneInput"
+                        value="{dialog>/employee/phone}"
+                        placeholder="Enter phone number"
+                        type="Tel"
+                        class="sapUiTinyMarginBottom" />
+
+                <Label text="Avatar URL (optional):" class="sapUiTinyMarginBottom" />
+                <Input id="employeeAvatarInput"
+                        value="{dialog>/employee/avatar}"
+                        placeholder="Enter avatar image URL"
+                        type="Url"
+                        class="sapUiTinyMarginBottom" />
+
+            </VBox>
+        </content>
+
+        <buttons>
+            <Button text="Save"
+                    type="Emphasized"
+                    press="onSaveEmployee"
+                    icon="sap-icon://save" />
+            <Button text="Cancel"
+                    press="onCancelEmployee"
+                    icon="sap-icon://cancel" />
+        </buttons>
+
+    </Dialog>
+
+</core:FragmentDefinition>

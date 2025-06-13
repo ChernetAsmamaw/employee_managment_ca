@@ -40,6 +40,10 @@
         "settings": {
           "bundleName": "sap.employees.exc.i18n.i18n"
         }
+      },
+      "": {
+        "type": "sap.ui.model.json.JSONModel",
+        "uri": "model/employeeData.json"
       }
     },
     "routing": {
@@ -49,7 +53,12 @@
         "async": true,
         "viewPath": "sap.employees.exc.view",
         "controlId": "App",
-        "controlAggregation": "pages"
+        "controlAggregation": "pages",
+        "bypassed": {
+          "target": [
+            "notFound"
+          ]
+        }
       },
       "routes": [
         {
@@ -66,11 +75,19 @@
       "targets": {
         "EmployeeList": {
           "viewName": "EmployeeList",
-          "transition": "fade"
+          "viewId": "employeeList",
+          "viewLevel": 1
         },
         "EmployeeDetail": {
           "viewName": "EmployeeDetail",
-          "transition": "flip"
+          "viewId": "employeeDetail",
+          "viewLevel": 2
+        },
+        "notFound": {
+          "viewName": "NotFound",
+          "viewId": "notFound",
+          "viewLevel": 3,
+          "transition": "show"
         }
       }
     },

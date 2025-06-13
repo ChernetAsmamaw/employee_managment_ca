@@ -5,95 +5,97 @@
     xmlns:core="sap.ui.core"
     core:require="{formatter: 'sap/employees/exc/model/Formatter'}">
 
-    <Page title="Employee Profile" showNavButton="true" navButtonPress="onNavBack">
+    <Page title="{name}" showNavButton="true" navButtonPress="onNavBack" enableScrolling="false">
+
+        <headerContent>
+            <ToolbarSpacer />
+            <Button
+                icon="sap-icon://edit"
+                type="Transparent"
+                press="onEdit"
+                tooltip="{i18n>editButton}" />
+            <Button
+                icon="sap-icon://delete"
+                type="Transparent"
+                press="onDelete"
+                tooltip="{i18n>deleteButton}" />
+        </headerContent>
 
         <content>
-            <ScrollContainer height="100%" width="100%" vertical="true">
-                <VBox class="sapUiSmallMargin sapUiResponsiveMargin">
+            <VBox class="sapUiSmallMargin sapUiResponsiveMargin" fitContainer="true">
+                <Panel headerText="{i18n>personalDataTitle}" class="sapUiResponsiveContentPadding">
+                    <VBox alignItems="Center">
+                        <Avatar
+                            src="{avatar}"
+                            displaySize="L"
+                            backgroundColor="Accent6"
+                            initials="{formatter: 'formatter.getInitials', parts: ['name']}"
+                            class="sapUiTinyMarginBottom" />
 
-                    <!-- Profile Overview -->
-                    <Panel headerText="Profile Overview" class="sapUiResponsiveContentPadding">
-                        <VBox alignItems="Center">
+                        <Title text="{name}" level="H2" />
+                        <Text text="{role}" class="sapUiTinyMarginTop" />
+                    </VBox>
+                </Panel>
 
-                            <HBox justifyContent="End" width="100%" class="sapUiTinyMarginBottom">
-                                <Button icon="sap-icon://edit" type="Transparent" press="onEdit" />
-                                <Button icon="sap-icon://delete" type="Transparent" press="onDelete" />
-                            </HBox>
+                <Panel headerText="{i18n>employeePanelHeader}" class="sapUiResponsiveMargin">
+                    <VBox class="sapUiTinyMargin" alignItems="Start" >
 
-                            <Avatar
-                                src="{selectedEmployee>/avatar}"
-                                displaySize="L"
-                                backgroundColor="Accent6"
-                                initials="{formatter: 'formatter.getInitials', parts: ['selectedEmployee>/name']}"
-                                class="sapUiTinyMarginBottom" />
+                        <HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                            <core:Icon src="sap-icon://badge" size="1.25rem" class="sapUiTinyMarginEnd" />
+                            <VBox>
+                                <Text text="{i18n>employeeIdLabel}" />
+                                <Text text="{id}" />
+                            </VBox>
+                        </HBox>
 
-                            <Title text="{selectedEmployee>/name}" level="H2" />
-                            <Text text="{selectedEmployee>/role}" class="sapUiTinyMarginTop" />
-                        </VBox>
-                    </Panel>
+                        <HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                            <core:Icon src="sap-icon://building" size="1.25rem" class="sapUiTinyMarginEnd" />
+                            <VBox>
+                                <Text text="{i18n>departmentLabel}" />
+                                <Text text="{department}" />
+                            </VBox>
+                        </HBox>
 
-                    <!-- Quick Info -->
-                    <Panel headerText="Employee Info" class="sapUiResponsiveMargin">
-                        <VBox class="sapUiTinyMargin" alignItems="Start" >
+                        <HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                            <core:Icon src="sap-icon://money-bills" size="1.25rem" class="sapUiTinyMarginEnd" />
+                            <VBox>
+                                <Text text="{i18n>salaryLabel}" />
+                                <ObjectNumber
+                                    number="{formatter: 'formatter.formatSalary', parts: ['salary']}"
+                                    state="Success"
+                                    tooltip="{i18n>salaryAmount}" />
+                            </VBox>
+                        </HBox>
 
-                            <HBox alignItems="Center" class="sapUiTinyMarginBottom">
-                                <core:Icon src="sap-icon://badge" size="1.25rem" class="sapUiTinyMarginEnd" />
-                                <VBox>
-                                    <Text text="ID" />
-                                    <Text text="{selectedEmployee>/id}" />
-                                </VBox>
-                            </HBox>
+                    </VBox>
+                </Panel>
 
-                            <HBox alignItems="Center" class="sapUiTinyMarginBottom">
-                                <core:Icon src="sap-icon://building" size="1.25rem" class="sapUiTinyMarginEnd" />
-                                <VBox>
-                                    <Text text="Department" />
-                                    <Text text="{selectedEmployee>/department}" />
-                                </VBox>
-                            </HBox>
+                <Panel headerText="{i18n>contactDataTitle}" class="sapUiResponsiveMargin">
+                    <VBox>
+                        <HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                            <core:Icon src="sap-icon://email" size="1rem" class="sapUiTinyMarginEnd" />
+                            <VBox>
+                                <Label text="{i18n>emailLabel}" />
+                                <Link
+                                    text="{email}"
+                                    href="mailto:{email}"
+                                    tooltip="{i18n>contactEmployee}" />
+                            </VBox>
+                        </HBox>
 
-                            <HBox alignItems="Center" class="sapUiTinyMarginBottom">
-                                <core:Icon src="sap-icon://money-bills" size="1.25rem" class="sapUiTinyMarginEnd" />
-                                <VBox>
-                                    <Text text="Salary" />
-                                    <ObjectNumber
-                                        number="{formatter: 'formatter.formatSalary', parts: ['selectedEmployee>/salary']}"
-                                        state="Success" />
-                                </VBox>
-                            </HBox>
-
-                        </VBox>
-                    </Panel>
-
-
-                    <!-- Contact -->
-                    <Panel headerText="Contact Information" class="sapUiResponsiveMargin">
-                        <VBox>
-
-                            <HBox alignItems="Center" class="sapUiTinyMarginBottom">
-                                <core:Icon src="sap-icon://email" size="1rem" class="sapUiTinyMarginEnd" />
-                                <VBox>
-                                    <Label text="Email" />
-                                    <Link text="{selectedEmployee>/email}" href="mailto:{selectedEmployee>/email}" />
-                                </VBox>
-                            </HBox>
-
-                            <HBox alignItems="Center" class="sapUiTinyMarginBottom">
-                                <core:Icon src="sap-icon://phone" size="1rem" class="sapUiTinyMarginEnd" />
-                                <VBox>
-                                    <Label text="Phone" />
-                                    <Link 
-                                        text="{formatter: 'formatter.formatPhone', parts: ['selectedEmployee>/phone']}" 
-                                        href="tel:{selectedEmployee>/phone}" />
-                                </VBox>
-                            </HBox>
-
-                        </VBox>
-                    </Panel>
-
-                </VBox>
-            </ScrollContainer>
+                        <HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                            <core:Icon src="sap-icon://phone" size="1rem" class="sapUiTinyMarginEnd" />
+                            <VBox>
+                                <Label text="{i18n>phoneLabel}" />
+                                <Link
+                                    text="{formatter: 'formatter.formatPhone', parts: ['phone']}"
+                                    href="tel:{phone}"
+                                    tooltip="{i18n>contactEmployee}" />
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                </Panel>
+            </VBox>
         </content>
-
     </Page>
 </mvc:View>

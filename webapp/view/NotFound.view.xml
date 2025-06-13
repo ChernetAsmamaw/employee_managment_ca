@@ -1,7 +1,13 @@
-<mvc:View controllerName="sap.training.exc.controller.NotFound"
-          xmlns:mvc="sap.ui.core.mvc"
-          xmlns="sap.m">
-
-   
-
+<mvc:View
+  controllerName="sap.employees.exc.controller.NotFound"
+  xmlns="sap.m"
+  xmlns:mvc="sap.ui.core.mvc">
+  <Page
+    title="{i18n>notFoundPageTitle}"
+    showNavButton="true"
+    navButtonPress=".onNavBack">
+    <MessagePage>
+        <Link text="{i18n>navToOverviewLinkText}" press=".onNavToOverview"/>
+    </MessagePage>
+  </Page>
 </mvc:View>
