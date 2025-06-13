@@ -6,8 +6,6 @@ sap.ui.define([], function () {
             if (!value || isNaN(value)) {
                 return "N/A";
             }
-            // Use JavaScript's built-in number formatting - NumberFormat
-            // toLocaleString() handles currency formatting automatically
             return new Intl.NumberFormat('en-US', {
                 style: 'currency',
                 currency: 'USD',
@@ -20,7 +18,6 @@ sap.ui.define([], function () {
             if (!phoneNumber) {
                 return "";
             }
-            // No change needed for now
             return phoneNumber;
         },
 
