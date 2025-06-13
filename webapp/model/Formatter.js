@@ -1,18 +1,7 @@
 sap.ui.define([], function () {
     "use strict";
-
-    /**
-     * Formatters are utility functions that transform data for display
-     * They're used in XML views to format bound data before showing it to users
-     * Formatters should be pure functions (no side effects) and return formatted values
-     */
+    
     return {
-        
-        /**
-         * Formats salary as USD currency
-         * @param {number} value - The salary value to format
-         * @returns {string} Formatted salary string like "$75,000"
-         */
         formatSalary: function (value) {
             if (!value || isNaN(value)) {
                 return "N/A";
@@ -27,11 +16,6 @@ sap.ui.define([], function () {
             }).format(value);
         },
 
-        /**
-         * Formats phone numbers for better readability
-         * @param {string} phoneNumber - Raw phone number
-         * @returns {string} Formatted phone number
-         */
         formatPhone: function (phoneNumber) {
             if (!phoneNumber) {
                 return "";
@@ -40,11 +24,6 @@ sap.ui.define([], function () {
             return phoneNumber;
         },
 
-        /**
-         * Capitalizes role names for consistent display
-         * @param {string} role - Employee role
-         * @returns {string} Properly capitalized role
-         */
         formatRole: function (role) {
             if (!role) {
                 return "";
@@ -52,11 +31,6 @@ sap.ui.define([], function () {
             return role.charAt(0).toUpperCase() + role.slice(1);
         },
 
-        /**
-         * Returns appropriate icon based on department
-         * @param {string} department - Employee department
-         * @returns {string} SAP icon name
-         */
         getDepartmentIcon: function (department) {
             switch (department) {
                 case "IT":
